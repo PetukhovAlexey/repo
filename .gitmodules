@@ -1,0 +1,3 @@
+[submodule "Dependencies\\bsonpp"]
+	path = Dependencies\\bsonpp
+	url = https://github.com/OlegJakushkin/CPP-BSON.git

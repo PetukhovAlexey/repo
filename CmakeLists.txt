@@ -1,0 +1,25 @@
+cmake_minimum_required(VERSION 3.0.2)
+project(Repo)
+
+include_directories(
+  ${CMAKE_SOURCE_DIR}/ 
+  ${CMAKE_SOURCE_DIR}/Dependencies/
+  ${CMAKE_SOURCE_DIR}/Dependencies/bsonpp
+  ${CMAKE_SOURCE_DIR}/Dependencies/utils
+  ${CMAKE_SOURCE_DIR}/Dependencies/md5
+  )
+  
+set (REPO_SRC
+
+         repo/change/snapshot.hpp
+         repo/change/snapshotsmanager.hpp
+
+         repo/cache.hpp
+         repo/change.hpp
+         repo/commit.hpp
+         repo/state.hpp
+         src/main.cpp
+         )
+         
+add_executable(RepoTest ${REPO_SRC})
+         
