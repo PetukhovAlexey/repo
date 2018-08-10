@@ -2,6 +2,7 @@
 #define REPO_CHANGE_SNAPSHOT_H
 
 #include <utils.hpp>
+#include <repo/hash.hpp>
 #include <iostream>
 #include <vector>
 
@@ -15,6 +16,12 @@ using istream_t = std::basic_istream<CharT>;
 
 class snapshot {
 public:
+    inline snapshot() :
+        start_(),
+        size_(),
+        hash_()
+    {}
+
     template<typename CharT>
     inline snapshot(istream_t<CharT>& stream, size_t start, size_t size) :
         start_(start),
@@ -28,18 +35,18 @@ public:
     }
 
     template<typename CharT>
-    inline static hash_t get_hash(istream_t<CharT>& stream, size_t start, size_t size) {
+    inline static hash get_hash(istream_t<CharT>& stream, size_t start, size_t size) {
         auto pos = stream.tellg();
         stream.seekg(start);
-        hash_t hash = utils::core::hash<istream_t<CharT>>(stream, size);
+        hash h(stream, size);
         stream.seekg(pos);
-        return hash;
+        return h;
     }
 
 private:
     size_t start_;
     size_t size_;
-    hash_t hash_;
+    hash hash_;
 };
 
 }

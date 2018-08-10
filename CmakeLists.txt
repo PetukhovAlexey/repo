@@ -9,6 +9,14 @@ include_directories(
   ${CMAKE_SOURCE_DIR}/Dependencies/md5
   )
   
+function(make_project SRC)
+  foreach(file_path ${${SRC}})
+    STRING(REGEX REPLACE "(.*)/[^/]*$" "\\1" FILE_DIR "${file_path}")
+    STRING(REPLACE "/" "\\" GROUP "${FILE_DIR}")  
+    source_group("${GROUP}" FILES "${file_path}")
+  endforeach(file_path)
+endfunction()
+  
 set (REPO_SRC
 
          repo/change/snapshot.hpp
@@ -17,9 +25,12 @@ set (REPO_SRC
          repo/cache.hpp
          repo/change.hpp
          repo/commit.hpp
+         repo/hash.hpp
          repo/state.hpp
          src/main.cpp
          )
+         
+make_project(REPO_SRC)
          
 add_executable(RepoTest ${REPO_SRC})
          
